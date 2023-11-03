@@ -1,0 +1,32 @@
+[
+  {
+    "name": "language-grpc",
+    "host": "language.googleapis.com",
+    "port": 443,
+    "isEnabled": true,
+    "sSLInfo": {
+      "enabled": true
+    },
+    "protocol": "GRPC_TARGET"
+  },
+  {
+    "name": "private-googleapis",
+    "host": "private.googleapis.com",
+    "port": 443,
+    "isEnabled": true,
+    "sSLInfo": {
+      "enabled": true
+    },
+    "protocol": "HTTP"
+  },
+  {
+    "name": "grpc-dynamic-proxy",
+    "host": "example.com",
+    "port": 443,
+    "isEnabled": true,
+    "sSLInfo": {
+      "enabled": true
+    },
+    "protocol": "GRPC_TARGET"
+  }
+]

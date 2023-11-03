@@ -19,9 +19,12 @@ set -e
 pushd ./tools
 export GRPCURL_VERSION="1.8.8"
 
+ACTUAL_OS="$(uname -s)"
+ACTUAL_ARCH="$(uname -m)"
+
+
 # Detect operating system
 GRPCURL_OS=""
-ACTUAL_OS="$(uname -s)"
 if [ "${ACTUAL_OS}" = "Darwin" ] ; then
   GRPCURL_OS="osx"
 elif [ "${ACTUAL_OS}" = "Linux" ]; then
@@ -33,7 +36,6 @@ fi
 
 #Detect architecture
 GRPCURL_ARCH=""
-ACTUAL_ARCH="$(uname -m)"
 if [ "${ACTUAL_ARCH}" = "arm64" ] ; then
   GRPCURL_ARCH="${ACTUAL_ARCH}"
 elif [ "${ACTUAL_ARCH}" = "x86_64" ] ; then

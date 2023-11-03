@@ -37,53 +37,19 @@ echo "APIGEE_ORG=${APIGEE_ORG}"
 
 export TOKEN="$(gcloud auth print-access-token --project "${APIGEE_ORG}")"
 
-TARGET_SERVER="language-grpc"
-TARGET_SERVER_HOST="language.googleapis.com"
-#delete target server if already exists
-if apigeecli targetservers get --name "${TARGET_SERVER}" \
-     --org "${APIGEE_ORG}" \
-     --env "${APIGEE_ENV}" \
-     --token "${TOKEN}" &> /dev/null ; then
 
-  echo "*** Target server ${TARGET_SERVER} already exists, updating it ..."
-  apigeecli targetservers update \
-     --name "${TARGET_SERVER}" \
-     --port 443 \
-     --host "${TARGET_SERVER_HOST}" \
-     --enable \
-     --tls true  \
-     --org "${APIGEE_ORG}" \
-     --env "${APIGEE_ENV}" \
-     --protocol GRPC_TARGET \
-     --token "${TOKEN}"
-else
-  echo "Creating target server ${TARGET_SERVER} ..."
-  apigeecli targetservers create \
-     --name "${TARGET_SERVER}" \
-     --port 443 \
-     --host "${TARGET_SERVER_HOST}" \
-     --enable \
-     --tls true  \
-     --org "${APIGEE_ORG}" \
-     --env "${APIGEE_ENV}" \
-     --protocol GRPC_TARGET \
-     --token "${TOKEN}"
-
-fi
-
-
-echo  "*** Creating language-grpc API Poxy bundle ..."
+echo  "*** Creating googleapis-passthrough API Poxy bundle ..."
 apigeecli apis create bundle \
   --token "${TOKEN}" \
   --org "${APIGEE_ORG}" \
   --proxy-folder ./apiproxy \
-  --name language-grpc
+  --name googleapis-passthrough
 
-echo "*** Deploying language-grpc API Proxy bundle ..."
+echo "*** Deploying googleapis-passthrough API Proxy bundle ..."
 apigeecli apis deploy \
   --token "${TOKEN}" \
   --org "${APIGEE_ORG}" \
   --env "${APIGEE_ENV}" \
-  --name language-grpc  \
+  --name googleapis-passthrough  \
   --ovr \
   --wait

@@ -19,9 +19,11 @@ set -e
 pushd ./tools
 export PROTOC_VERSION="24.4"
 
+ACTUAL_OS="$(uname -s)"
+ACTUAL_ARCH="$(uname -m)"
+
 # Detect operating system
 PROTOC_OS=""
-ACTUAL_OS="$(uname -s)"
 if [ "${ACTUAL_OS}" = "Darwin" ] ; then
   PROTOC_OS="osx"
 elif [ "${ACTUAL_OS}" = "Linux" ]; then
@@ -33,7 +35,6 @@ fi
 
 #Detect architecture
 PROTOC_ARCH=""
-ACTUAL_ARCH="$(uname -m)"
 if [ "${ACTUAL_ARCH}" = "arm64" ] ; then
   PROTOC_ARCH="aarch_64"
 elif [ "${ACTUAL_ARCH}" = "x86_64" ] ; then

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-SetProtoInfo">
+    <DisplayName>AM-SetProtoInfo</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>segment_regex</Name>
+        <Value>\.([^.]+)$</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>proto_package</Name>
+        <Template>{replaceFirst(proto_service,segment_regex,'')}</Template>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>proto_service_underscore</Name>
+        <Template>{replaceAll(proto_service,'[.]','_')}</Template>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>proto_service_descriptor</Name>
+        <PropertySetRef>{proto_service_underscore}.proto_service_descriptor</PropertySetRef>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

@@ -1,0 +1,28 @@
+<APIProxy revision="1" name="googleapis-passthrough">
+    <DisplayName></DisplayName>
+    <Description></Description>
+    <CreatedAt>1699013896797</CreatedAt>
+    <LastModifiedAt>1699013896797</LastModifiedAt>
+    <BasePaths>/</BasePaths>
+    <Policies>
+        <Policy>AM-SetProtoInfo</Policy>
+        <Policy>EV-ParseProtoPath</Policy>
+        <Policy>Java-PbDecodeReq</Policy>
+        <Policy>Java-PbDecodeRes</Policy>
+        <Policy>AM-SetDecodedMsg</Policy>
+        <Policy>AM-SetGRPCHost</Policy>
+        <Policy>AM-SetRESTHost</Policy>
+        <Policy>RegexTP-CheckBody</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>java://apigee-callout-protobuf-decoder.jar</Resource>
+    </Resources>
+    <TargetEndpoints>
+        <TargetEndpoint>dynamic-target-grpc</TargetEndpoint>
+        <TargetEndpoint>dynamic-target-rest</TargetEndpoint>
+        <TargetEndpoint>language-target-grpc</TargetEndpoint>
+    </TargetEndpoints>
+</APIProxy>

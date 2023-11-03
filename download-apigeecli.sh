@@ -16,10 +16,13 @@
 
 set -e
 pushd ./tools
-export APIGEECLI_VERSION="v1.123.2-beta"
+export APIGEECLI_VERSION="v1.124.1-beta"
+
+ACTUAL_OS="$(uname -s)"
+ACTUAL_ARCH="$(uname -m)"
 
 echo "*** Downloading apigeecli (version: ${APIGEECLI_VERSION})"
-export APIGEECLI_DIR="apigeecli_${APIGEECLI_VERSION}_$(uname -s)_$(uname -m)"
+export APIGEECLI_DIR="apigeecli_${APIGEECLI_VERSION}_${ACTUAL_OS}_${ACTUAL_ARCH}"
 curl -o apigeecli.zip -sfL "https://github.com/apigee/apigeecli/releases/download/${APIGEECLI_VERSION}/${APIGEECLI_DIR}.zip"
 
 echo "*** Extracting apigeecli ***"

@@ -20,10 +20,35 @@
     <PreFlow name="PreFlow">
         <Request>
             <Step>
+                <Condition>request.header.Content-Type != "application/grpc"</Condition>
+                <Name>AM-SetDecodedMsg</Name>
+            </Step>
+            <Step>
+                <Condition>request.header.Content-Type = "application/grpc"</Condition>
+                <Name>EV-ParseProtoPath</Name>
+            </Step>
+            <Step>
+                <Condition>request.header.Content-Type = "application/grpc"</Condition>
+                <Name>AM-SetProtoInfo</Name>
+            </Step>
+            <Step>
+                <Condition>request.header.Content-Type = "application/grpc"</Condition>
                 <Name>Java-PbDecodeReq</Name>
             </Step>
+            <Step>
+                <Name>RegexTP-CheckBody</Name>
+            </Step>
         </Request>
-        <Response/>
+        <Response>
+            <Step>
+                <Condition>request.header.Content-Type != "application/grpc"</Condition>
+                <Name>AM-SetDecodedMsg</Name>
+            </Step>
+            <Step>
+                <Condition>request.header.Content-Type = "application/grpc"</Condition>
+                <Name>Java-PbDecodeRes</Name>
+            </Step>
+        </Response>
     </PreFlow>
     <PostFlow name="PostFlow">
         <Request/>
@@ -31,10 +56,19 @@
     </PostFlow>
     <Flows/>
     <HTTPProxyConnection>
-        <BasePath>/google.cloud.language.v2.LanguageService</BasePath>
+        <BasePath>/</BasePath>
         <Properties/>
     </HTTPProxyConnection>
-    <RouteRule name="language-target">
-        <TargetEndpoint>language-target</TargetEndpoint>
+    <RouteRule name="language-target-grpc">
+        <Condition>proto_package = "google.cloud.language.v2" </Condition>
+        <TargetEndpoint>language-target-grpc</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="dynamic-target-grpc">
+        <Condition>request.header.Content-Type = "application/grpc"</Condition>
+        <TargetEndpoint>dynamic-target-grpc</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="dynamic-target-rest">
+        <Condition>request.header.Content-Type != "application/grpc"</Condition>
+        <TargetEndpoint>dynamic-target-rest</TargetEndpoint>
     </RouteRule>
 </ProxyEndpoint>
